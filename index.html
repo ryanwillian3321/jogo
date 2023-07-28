@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Minecraft 2D</title>
+  <title>Jogo 2D</title>
   <style>
     body {
       margin: 0;
@@ -9,6 +9,7 @@
     }
     canvas {
       display: block;
+      background-color: black;
     }
   </style>
 </head>
@@ -22,60 +23,17 @@
       scene: {
         preload: preload,
         create: create,
-        update: update
       }
     };
 
     const game = new Phaser.Game(config);
 
-    let player;
-    let blocks;
-
     function preload() {
-      this.load.image('player', 'path/to/player.png');
       this.load.image('block', 'path/to/block.png');
     }
 
     function create() {
-      player = this.physics.add.sprite(100, 100, 'player');
-      player.setCollideWorldBounds(true);
-
-      blocks = this.physics.add.staticGroup();
-      generateWorld();
-
-      this.input.on('pointerdown', mineBlock);
-    }
-
-    function update() {
-      const cursors = this.input.keyboard.createCursorKeys();
-
-      if (cursors.left.isDown) {
-        player.setVelocityX(-200);
-      } else if (cursors.right.isDown) {
-        player.setVelocityX(200);
-      } else {
-        player.setVelocityX(0);
-      }
-
-      if (cursors.up.isDown) {
-        player.setVelocityY(-200);
-      } else if (cursors.down.isDown) {
-        player.setVelocityY(200);
-      } else {
-        player.setVelocityY(0);
-      }
-    }
-
-    function generateWorld() {
-      for (let x = 0; x < 10; x++) {
-        for (let y = 0; y < 10; y++) {
-          blocks.create(x * 50, y * 50, 'block').setInteractive();
-        }
-      }
-    }
-
-    function mineBlock(pointer, block) {
-      block.destroy();
+      this.block = this.add.sprite(100, 100, 'block');
     }
   </script>
 </body>
